@@ -6,7 +6,7 @@ class IRotable(Protocol):
     def get_direction(self) -> Direction:
         ...
     
-    def get_angular_velocity(self) -> int:
+    def get_angular_velocity(self) -> float:
         ...
     
     def set_direction(self, new_value: Direction) -> None:

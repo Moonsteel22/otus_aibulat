@@ -10,5 +10,5 @@ class IMovable(Protocol):
     def get_velocity(self) -> Vector:
         ...
 
-    def set_location(self, value: Vector) -> Vector:
+    def set_location(self, value: Vector) -> None:
         ...
