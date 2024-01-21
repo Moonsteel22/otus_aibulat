@@ -15,6 +15,7 @@ poetry install
 ```
 
 ## Run tests
+For example for tests of 6's lesson
 ```
 poetry run pytest otus_aibulat/lesson_6/tests
 ```
