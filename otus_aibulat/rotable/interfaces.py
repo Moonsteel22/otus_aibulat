@@ -1,5 +1,5 @@
 from typing import Protocol
-from otus_aibulat.lesson_6.types import Direction
+from otus_aibulat.types import Direction
 
 
 class IRotable(Protocol):

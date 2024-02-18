@@ -1,7 +1,5 @@
-
-
-from otus_aibulat.lesson_6.movable.interfaces import IMovable
-from otus_aibulat.lesson_6.types import Vector
+from otus_aibulat.movable.interfaces import IMovable
+from otus_aibulat.types import Vector
 
 
 class MoveCommand:

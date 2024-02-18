@@ -1,10 +1,10 @@
 import math
 from faker import Faker
-from otus_aibulat.lesson_6.rotable.command import RotateCommand
+from otus_aibulat.rotable.command import RotateCommand
 import pytest
 
-from otus_aibulat.lesson_6.rotable.rotable_adapter import RotableAdapter
-from otus_aibulat.lesson_6.types import Direction, SpaceObject, Vector
+from otus_aibulat.rotable.rotable_adapter import RotableAdapter
+from otus_aibulat.types import Direction, SpaceObject, Vector
 
 
 @pytest.fixture(name="rotable_adapter")
