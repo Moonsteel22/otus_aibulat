@@ -1,4 +1,4 @@
-from otus_aibulat.lesson_6.rotable.interfaces import IRotable
+from otus_aibulat.rotable.interfaces import IRotable
 
 
 class RotateCommand:

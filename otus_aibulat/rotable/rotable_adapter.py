@@ -1,4 +1,4 @@
-from otus_aibulat.lesson_6.types import Direction, SpaceObject
+from otus_aibulat.types import Direction, SpaceObject
 
 
 class RotableAdapter:

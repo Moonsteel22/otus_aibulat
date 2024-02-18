@@ -1,6 +1,6 @@
 import math
 from faker import Faker
-from otus_aibulat.lesson_6.types import Direction, SpaceObject, Vector
+from otus_aibulat.types import Direction, SpaceObject, Vector
 import pytest
 
 

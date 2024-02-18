@@ -1,11 +1,11 @@
 import math
 from unittest.mock import Mock
 from faker import Faker
-from otus_aibulat.lesson_6.movable.exceptions import GetLocationException, GetVelocityException, SetLocationException
+from otus_aibulat.movable.exceptions import GetLocationException, GetVelocityException, SetLocationException
 
-from otus_aibulat.lesson_6.types import Direction, SpaceObject, Vector
-from otus_aibulat.lesson_6.movable.command import MoveCommand
-from otus_aibulat.lesson_6.movable.movable_adapter import MovableAdapter
+from otus_aibulat.types import Direction, SpaceObject, Vector
+from otus_aibulat.movable.command import MoveCommand
+from otus_aibulat.movable.movable_adapter import MovableAdapter
 import pytest
 
 
