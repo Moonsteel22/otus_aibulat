@@ -12,22 +12,22 @@ class PutLoggerExceptionHandlerCommand:
         self,
         ex: Exception,
         cmd: ICommand,
+        queue: Queue,
         command_maker: CommandMaker = lambda ex, cmd, cmd_class: cmd_class(ex, cmd),
     ):
         self.ex = ex
         self.cmd = cmd
         self.command_maker = command_maker
+        self.queue = queue
 
     def execute(self) -> None:
         if isinstance(self.cmd, RepeaterCommand):
             print(f"[{self}]: Unsuccessful, just logging...")
-            self.command_maker(
-                ex=self.ex, cmd=self.cmd, cmd_class=LoggerCommand
-            ).execute()
+            self.command_maker(ex=self.ex, cmd=self.cmd, cmd_class=LoggerCommand)
             return
-        self.command_maker(
-            ex=self.ex, cmd=self.cmd, cmd_class=RepeaterCommand
-        ).execute()
+        self.queue.put_nowait(
+            self.command_maker(ex=self.ex, cmd=self.cmd, cmd_class=RepeaterCommand)
+        )
 
     def __str__(self) -> str:
         return "DoubleAndLogExceptionHandlerCommand"

@@ -1,13 +1,9 @@
 from queue import Queue
 from typing import Type, Callable
 
-from otus_aibulat.exceptions.doubled_command import DoubledCommand
 from otus_aibulat.exceptions.handler_commands import (
     PutLoggerExceptionHandlerCommand,
-    DoubleAndLogExceptionHandlerCommand,
 )
-from otus_aibulat.exceptions.logger_command import LoggerCommand
-from otus_aibulat.exceptions.repeater_command import RepeaterCommand
 from otus_aibulat.interfaces import ICommand
 from otus_aibulat.movable.command import MoveCommand
 
@@ -20,19 +16,9 @@ class ExceptionHandler:
     def __init__(self, queue: Queue) -> None:
         self.exception_handlers = {
             MoveCommand: {
-                ValueError: lambda ex, cmd: LoggerCommand(ex=ex, cmd=cmd),
-                TypeError: lambda ex, cmd: PutLoggerExceptionHandlerCommand(
-                    ex=ex, cmd=cmd
+                Exception: lambda ex, cmd: PutLoggerExceptionHandlerCommand(
+                    ex=ex, cmd=cmd, queue=queue
                 ),
-                KeyError: lambda ex, cmd: DoubleAndLogExceptionHandlerCommand(
-                    queue=queue, ex=ex, cmd=cmd
-                ),
-                Exception: lambda ex, cmd: RepeaterCommand(ex=ex, cmd=cmd),
-            },
-            DoubledCommand: {
-                Exception: lambda ex, cmd: DoubleAndLogExceptionHandlerCommand(
-                    queue=queue, ex=ex, cmd=cmd
-                )
             },
         }
 

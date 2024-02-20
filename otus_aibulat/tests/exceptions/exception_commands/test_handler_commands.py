@@ -44,17 +44,18 @@ def test_handler_and_doubled_command_for_doubled() -> None:
 
 def test_put_logger_handler_repeater() -> None:
     mock: Any = Mock()
-    command_maker: Any = Mock()
+    command_maker: Any = Mock(return_value=mock)
+    queue: Any = Mock()
 
     command: PutLoggerExceptionHandlerCommand = PutLoggerExceptionHandlerCommand(
-        ex=mock, cmd=mock, command_maker=command_maker
+        ex=mock, cmd=mock, command_maker=command_maker, queue=queue
     )
     command.execute()
 
     assert command_maker.mock_calls == [
         call(ex=mock, cmd=mock, cmd_class=RepeaterCommand),
-        call().execute(),
     ]
+    assert queue.put_nowait.mock_calls == [call(mock)]
 
 
 def test_put_logger_handler_logger() -> None:
@@ -63,7 +64,7 @@ def test_put_logger_handler_logger() -> None:
 
     repeater_command: RepeaterCommand = RepeaterCommand(ex=mock, cmd=mock)
     command: PutLoggerExceptionHandlerCommand = PutLoggerExceptionHandlerCommand(
-        ex=mock, cmd=repeater_command, command_maker=command_maker
+        ex=mock, cmd=repeater_command, command_maker=command_maker, queue=Mock()
     )
     command.execute()
 
