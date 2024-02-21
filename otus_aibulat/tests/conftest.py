@@ -8,6 +8,7 @@ import pytest
 def _faker() -> Faker:
     return Faker()
 
+
 @pytest.fixture(name="velocity")
 def _velocity(faker: Faker) -> int:
     return faker.pyint()
@@ -20,7 +21,7 @@ def _angular_velocity() -> float:
 
 @pytest.fixture(name="direction")
 def _direction() -> Direction:
-    return Direction(directions_number=2*math.pi, direction=0.0)
+    return Direction(directions_number=2 * math.pi, direction=0.0)
 
 
 @pytest.fixture(name="location")
@@ -29,5 +30,12 @@ def _return_location() -> Vector:
 
 
 @pytest.fixture(name="space_object")
-def _space_object(angular_velocity: float, direction: Direction, velocity: int, location: Vector) -> SpaceObject:
-    return SpaceObject(angular_velocity=angular_velocity, location=location, velocity=velocity, direction=direction)
+def _space_object(
+    angular_velocity: float, direction: Direction, velocity: int, location: Vector
+) -> SpaceObject:
+    return SpaceObject(
+        angular_velocity=angular_velocity,
+        location=location,
+        velocity=velocity,
+        direction=direction,
+    )
