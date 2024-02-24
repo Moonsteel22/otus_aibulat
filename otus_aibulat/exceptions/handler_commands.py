@@ -23,7 +23,9 @@ class PutLoggerExceptionHandlerCommand:
     def execute(self) -> None:
         if isinstance(self.cmd, RepeaterCommand):
             print(f"[{self}]: Unsuccessful, just logging...")
-            self.command_maker(ex=self.ex, cmd=self.cmd, cmd_class=LoggerCommand)
+            self.command_maker(
+                ex=self.ex, cmd=self.cmd, cmd_class=LoggerCommand
+            ).execute()
             return
         self.queue.put_nowait(
             self.command_maker(ex=self.ex, cmd=self.cmd, cmd_class=RepeaterCommand)
