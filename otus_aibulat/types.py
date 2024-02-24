@@ -1,6 +1,7 @@
 import dataclasses
 from typing import TypedDict
 
+
 @dataclasses.dataclass
 class Direction:
     directions_number: float
@@ -19,10 +20,7 @@ class Vector:
 
     @classmethod
     def plus(cls, first: "Vector", second: "Vector") -> "Vector":
-        return Vector(
-            x=first.x+second.x,
-            y=first.y+second.y
-        )
+        return Vector(x=first.x + second.x, y=first.y + second.y)
 
 
 class SpaceObject(TypedDict):

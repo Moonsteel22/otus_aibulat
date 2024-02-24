@@ -1,10 +1,9 @@
-import math
 from faker import Faker
-from otus_aibulat.rotable.command import RotateCommand
+from otus_aibulat.operations.rotable.command import RotateCommand
 import pytest
 
-from otus_aibulat.rotable.rotable_adapter import RotableAdapter
-from otus_aibulat.types import Direction, SpaceObject, Vector
+from otus_aibulat.operations.rotable.rotable_adapter import RotableAdapter
+from otus_aibulat.types import Direction, SpaceObject
 
 
 @pytest.fixture(name="rotable_adapter")
@@ -16,15 +15,16 @@ def test_direction(faker: Faker, direction: Direction) -> None:
     test_value: float = faker.pyfloat()
 
     expected_direction: Direction = Direction(
-        direction=(direction.direction+test_value) % direction.directions_number,
-        directions_number=direction.directions_number
+        direction=(direction.direction + test_value) % direction.directions_number,
+        directions_number=direction.directions_number,
     )
 
     assert direction.next(test_value) == expected_direction
 
 
-def test_rotable_get(rotable_adapter: RotableAdapter, angular_velocity: float, direction: Direction) -> None:
-
+def test_rotable_get(
+    rotable_adapter: RotableAdapter, angular_velocity: float, direction: Direction
+) -> None:
     actual_angular_velocity: float = rotable_adapter.get_angular_velocity()
 
     assert actual_angular_velocity == angular_velocity
@@ -34,9 +34,12 @@ def test_rotable_get(rotable_adapter: RotableAdapter, angular_velocity: float, d
     assert actual_direction == direction
 
 
-def test_rotable_set(faker: Faker, rotable_adapter: RotableAdapter, direction: Direction) -> None:
-
-    new_direction: Direction = Direction(direction=faker.pyfloat(), directions_number=faker.pyfloat())
+def test_rotable_set(
+    faker: Faker, rotable_adapter: RotableAdapter, direction: Direction
+) -> None:
+    new_direction: Direction = Direction(
+        direction=faker.pyfloat(), directions_number=faker.pyfloat()
+    )
 
     assert rotable_adapter.space_object["direction"] == direction
 
@@ -50,4 +53,6 @@ def test_command(rotable_adapter: RotableAdapter, direction: Direction) -> None:
 
     command.execute()
 
-    assert rotable_adapter.get_direction() == direction.next(rotable_adapter.space_object["angular_velocity"])
+    assert rotable_adapter.get_direction() == direction.next(
+        rotable_adapter.space_object["angular_velocity"]
+    )

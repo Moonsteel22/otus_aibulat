@@ -5,9 +5,9 @@ from otus_aibulat.types import Direction
 class IRotable(Protocol):
     def get_direction(self) -> Direction:
         ...
-    
+
     def get_angular_velocity(self) -> float:
         ...
-    
+
     def set_direction(self, new_value: Direction) -> None:
         ...

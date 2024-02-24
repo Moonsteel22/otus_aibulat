@@ -1,11 +1,15 @@
 import math
 from unittest.mock import Mock
 from faker import Faker
-from otus_aibulat.movable.exceptions import GetLocationException, GetVelocityException, SetLocationException
+from otus_aibulat.operations.movable.exceptions import (
+    GetLocationException,
+    GetVelocityException,
+    SetLocationException,
+)
 
 from otus_aibulat.types import Direction, SpaceObject, Vector
-from otus_aibulat.movable.command import MoveCommand
-from otus_aibulat.movable.movable_adapter import MovableAdapter
+from otus_aibulat.operations.movable import MoveCommand
+from otus_aibulat.operations.movable.movable_adapter import MovableAdapter
 import pytest
 
 
@@ -14,13 +18,17 @@ def _movable_adapter(space_object: SpaceObject) -> MovableAdapter:
     return MovableAdapter(space_object=space_object)
 
 
-def test_move_get(direction: Direction, velocity: int, location: Vector, movable_adapter: MovableAdapter) -> None:
-    
+def test_move_get(
+    direction: Direction,
+    velocity: int,
+    location: Vector,
+    movable_adapter: MovableAdapter,
+) -> None:
     assert movable_adapter.get_location() == location
 
     expected_velocity: Vector = Vector(
-        x=velocity*math.cos(direction.direction),
-        y=velocity*math.sin(direction.direction)
+        x=velocity * math.cos(direction.direction),
+        y=velocity * math.sin(direction.direction),
     )
 
     assert movable_adapter.get_velocity() == expected_velocity
@@ -35,7 +43,6 @@ def test_move_set(faker: Faker, movable_adapter: MovableAdapter) -> None:
 
 
 def test_move_exceptions(movable_adapter: MovableAdapter) -> None:
-
     movable_adapter.space_object = Mock(**{"side_effect": KeyError})
 
     with pytest.raises(GetLocationException):
@@ -46,7 +53,7 @@ def test_move_exceptions(movable_adapter: MovableAdapter) -> None:
 
     with pytest.raises(SetLocationException):
         movable_adapter.set_location(value=Vector(x=0, y=0))
-        
+
 
 def test_command(movable_adapter: MovableAdapter) -> None:
     move_command = MoveCommand(movable=movable_adapter)
@@ -56,5 +63,5 @@ def test_command(movable_adapter: MovableAdapter) -> None:
 
     actual_location: Vector = movable_adapter.get_location()
     expected_location: Vector = Vector(5, 8)
-    
+
     assert actual_location == expected_location

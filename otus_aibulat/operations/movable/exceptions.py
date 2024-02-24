@@ -5,8 +5,10 @@ class MovableException(Exception):
 class GetVelocityException(MovableException):
     ...
 
+
 class GetLocationException(MovableException):
     ...
+
 
 class SetLocationException(MovableException):
     ...
