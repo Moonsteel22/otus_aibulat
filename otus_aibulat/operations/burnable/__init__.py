@@ -1,0 +1,1 @@
+from otus_aibulat.operations.burnable.command import BurnFuelCommand

@@ -3,7 +3,6 @@ from otus_aibulat.types import Vector
 
 
 class IMovable(Protocol):
-
     def get_location(self) -> Vector:
         ...
 
